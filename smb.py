@@ -1,0 +1,1 @@
+#file specifically for smb enumeration. hopefully, after seeing some of
