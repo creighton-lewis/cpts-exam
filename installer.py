@@ -1,7 +1,8 @@
 import os 
 import subprocess
 import sys
-import time from rich.console import Console #type: ignore
+import time 
+from rich.console import Console #type: ignore
 # Create a console instance – this is what gives us .print() and .input()
 console = Console()
 def upgrade_all():
