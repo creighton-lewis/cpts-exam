@@ -14,6 +14,9 @@ elif command == "start_http":
     except: 
         os.system(f"{sys.executable} -m http.server 8000 --bind 0.0.0.0")
 elif command == "start_samba":
+   file_check= os.path.exists("/usr/share/doc/python3-impacket/examples/smbserver.py")
+   if not file_check:
+       console.print("The smbserver.py file is not found. Please install the impacket library to use this feature.")
    os.system(f"sudo python3 /usr/share/doc/python3-impacket/examples/smbserver.py -smb2support CompData Downloads")
 else:
     print("Invalid command. Please enter 'start_ftp' or 'start_http'.")
