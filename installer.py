@@ -2,15 +2,10 @@
 import os
 import subprocess
 import sys
-<<<<<<< HEAD
 import time
-from rich.console import Console
+from rich.console import Console #type:ignore
 
-=======
-import time 
-from rich.console import Console #type: ignore
-# Create a console instance – this is what gives us .print() and .input()
->>>>>>> 0c98b47fb6c607864f23066d8fff1f536c8bb4d4
+
 console = Console()
 
 def upgrade_all():
@@ -71,8 +66,6 @@ def install_linpeas():
     os.system("curl -L https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh | bash")
 
 def install_winpeas():
-<<<<<<< HEAD
-    """Install Windows PEAS"""
     os.system("curl -L https://github.com/peass-ng/PEASS-ng/releases/latest/download/winPEAS.exe -o winPEAS.exe")
     os.system("start winPEAS.exe")
 
@@ -100,6 +93,3 @@ if __name__ == "__main__":
     console.print("=" * 50)
     console.print("✅ All installations completed!")
     console.print("=" * 50)
-=======
-    os.system(f"curl -L url = https://github.com/peass-ng/PEASS-ng/releases/latest/download/winPEASany_ofs.exe")
->>>>>>> 0c98b47fb6c607864f23066d8fff1f536c8bb4d4
