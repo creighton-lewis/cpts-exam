@@ -8,6 +8,7 @@ from rich.console import Console #type:ignore
 
 console = Console()
 
+
 def upgrade_all():
     """Upgrade system packages"""
     os.system("sudo apt update && sudo apt upgrade -y")
@@ -16,6 +17,7 @@ def install_config_files():
     os.system(f"wget https://raw.githubusercontent.com/creighton-lewis/Environment-FIles/refs/heads/main/.tmux.conf")
     os.system(f"source-file .tmux.conf")
     os.system(f"wget https://raw.githubusercontent.com/creighton-lewis/Environment-FIles/refs/heads/main/.zshrc")
+    os.system(f"mv .zshrc ~/.zshrc")
     os.system(f"source ~/.zshrc")
 
 def download_brew():
@@ -26,20 +28,6 @@ def download_brew():
     os.system(f"echo 'eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\"' >> {brew_path}")
     os.system(f"eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)")
 
-def combine_wordlists():
-    """Download and combine SecLists wordlists"""
-    os.system("mkdir -p ~/wordlists")
-    os.chdir("~/wordlists")
-    console.print("⚙ Creating comprehensive wordlists...")
-    wordlist_url = (
-        f"https://raw.githubusercontent.com/danielmiessler/SecLists"
-        "/refs/heads/master/Discovery/Web-Content/raft-large-directories.txt"
-    )
-    os.system(f"curl -s {wordlist_url} | tee dir_wordlist")
-    console.print("✅ Wordlist combined successfully")
-    os.system("cd ~")
-    time.sleep(10)
-    os.system("rm -rf ~/wordlists/dir_wordlist")
 
 def install_reconspider():
     os.system("git clone https://github.com/bhavsec/reconspider.git")
@@ -72,7 +60,6 @@ def install_linpeas():
 
 def install_winpeas():
     os.system("curl -L https://github.com/peass-ng/PEASS-ng/releases/latest/download/winPEAS.exe -o winPEAS.exe")
-    os.system("start winPEAS.exe")
 
 def install_sqlmap():
     """Install SQLMap"""
@@ -85,7 +72,6 @@ if __name__ == "__main__":
     
     upgrade_all()
     download_brew()
-    combine_wordlists()
     install_reconspider()
     install_odat()
     install_dovecot()
