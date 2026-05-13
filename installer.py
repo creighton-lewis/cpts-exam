@@ -12,9 +12,15 @@ def upgrade_all():
     """Upgrade system packages"""
     os.system("sudo apt update && sudo apt upgrade -y")
 
+def install_config_files():
+    os.system(f"wget https://raw.githubusercontent.com/creighton-lewis/Environment-FIles/refs/heads/main/.tmux.conf")
+    os.system(f"source-file .tmux.conf")
+    os.system(f"wget https://raw.githubusercontent.com/creighton-lewis/Environment-FIles/refs/heads/main/.zshrc")
+    os.system(f"source ~/.zshrc")
+
 def download_brew():
     """Install Homebrew and add to bashrc"""
-    user = os.getlogin()
+    user = os.system("whoami")
     brew_path = f"/home/{user}/.bashrc"
     os.system(f'/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"')
     os.system(f"echo 'eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\"' >> {brew_path}")
@@ -36,8 +42,7 @@ def combine_wordlists():
     os.system("rm -rf ~/wordlists/dir_wordlist")
 
 def install_reconspider():
-    """Download and run ReconSpider"""
-    os.system("wget -O ReconSpider.zip https://academy.hackthebox.com/storage/modules/144/ReconSpider.v1.2.zip")
+    os.system("git clone https://github.com/bhavsec/reconspider.git")
     os.system("unzip ReconSpider.zip")
     os.system("python3 ReconSpider.py")
 
