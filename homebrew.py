@@ -5,7 +5,7 @@ import time
 def download_brew():
     """Install Homebrew and add to bashrc"""
     user = os.system("whoami")
-    print (user)
+    print(user)
     time.sleep(5)
     brew_path = f"/home/{user}/.bashrc"
     print (brew_path)
