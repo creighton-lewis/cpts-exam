@@ -3,6 +3,7 @@ import os
 import subprocess
 import sys
 import time
+import shutil
 from rich.console import Console #type:ignore
 
 
@@ -14,19 +15,30 @@ def upgrade_all():
     os.system("sudo apt update && sudo apt upgrade -y")
 
 def install_config_files():
-    os.system(f"wget https://raw.githubusercontent.com/creighton-lewis/Environment-FIles/refs/heads/main/.tmux.conf")
+    console.print("⚙ Downloading configuration files...")
+    base_link="/creighton-lewis/Environment-FIles/refs/heads/main/"
+    os.system(f"wget https://raw.githubusercontent.com/{base_link}.tmux.conf")
     os.system(f"source-file .tmux.conf")
-    os.system(f"wget https://raw.githubusercontent.com/creighton-lewis/Environment-FIles/refs/heads/main/.zshrc")
+    os.system(f"wget https://raw.githubusercontent.com/{base_link}.zshrc")
     os.system(f"mv .zshrc ~/.zshrc")
     os.system(f"source ~/.zshrc")
+    os.system(f"https://raw.githubusercontent.com/{base_link}init.lua")
+    os.system(f"mv init.lua ~/.config/nvim/init.lua")
+    os.system(f"source ~/.config/nvim/init.lua")
 
 def download_brew():
     """Install Homebrew and add to bashrc"""
-    user = os.system("whoami")
+    user = os.getlogin()
+    print(f"Current user: {user}")
     brew_path = f"/home/{user}/.bashrc"
     os.system(f'/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"')
-    os.system(f"echo 'eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\"' >> {brew_path}")
-    os.system(f"eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)")
+    try:
+        os.system(f"echo 'eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\"' >> {brew_path}")
+        os.system(f"eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)")
+    except:
+        console.print("[red]Error adding Homebrew to bashrc. Please add it manually:[/red]")
+
+
 
 
 def install_reconspider():
@@ -56,9 +68,10 @@ def install_dalfox():
 
 def install_linpeas():
     """Install Linux PEAS"""
-    os.system("curl -L https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh | bash")
+    os.system("curl -L https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh")
 
 def install_winpeas():
+    os.current_dir = os.getcwd()
     os.system("curl -L https://github.com/peass-ng/PEASS-ng/releases/latest/download/winPEAS.exe -o winPEAS.exe")
 
 def install_sqlmap():

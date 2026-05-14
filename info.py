@@ -1,20 +1,5 @@
 #!/usr/bin/env python3
-"""
-Simple web‑enumeration helper.
 
-Supported actions (all are thin wrappers around external tools):
-    • curl (basic request and headers)
-    • robots.txt download
-    • whois lookup
-    • nikto scan
-    • whatweb fingerprint
-    • dig / nslookup DNS queries
-    • nmap HTTP‑title and http‑enum scripts
-
-The script only orchestrates the commands; it does **not** try to parse the
-output.  Install the required tools (curl, whois, nikto, whatweb, dig, nslookup,
-nmap, …) on the host before running it.
-"""
 
 import argparse
 import os
